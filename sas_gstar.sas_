@@ -1,0 +1,12 @@
+PROC IMPORT DATAFILE='/home/u64061700/Gstar/telur_sas_.xlsx'
+            OUT=telur
+            DBMS=xlsx REPLACE;
+    GETNAMES=YES; /* If the first row contains variable names */
+RUN;
+proc varmax data=telur printall; 
+model kediri blitar malang / p=2 dify(1) minic=(type=AIC p=(0:10) q=(0:1)) lagmax=5 noint printall; 
+run;
+libname mylib 'C:\Downloads\SAS_Dataset';
+data mylib.dataset_name;
+    set work.dataset_name;
+run;
